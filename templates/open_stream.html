@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Camera</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Select Camera</h1>
+    <button id="camera_1_btn" onclick="openCamera('rtsp://admin:dhbiss12138@192.168.1.108/cam/realmonitor?channel=1&subtype=0')">Camera 1</button>
+    <button id="camera_2_btn" onclick="openCamera('rtsp://admin:dhbiss12138@192.168.1.108/cam/realmonitor?channel=2&subtype=0')">Camera 2</button>
+    <script>
+        function openCamera(cameraUrl) {
+            $.ajax({
+                type: 'POST',
+                url: '/open_stream',
+                data: {'camera_url': cameraUrl},
+                success: function(response) {
+                    alert(response);
+                    window.location.href = '/display_camera';  // 成功打开摄像头后跳转到显示摄像头画面
+                },
+                error: function(xhr, status, error) {
+                    alert('Error opening camera: ' + error);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
